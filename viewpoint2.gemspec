@@ -5,7 +5,7 @@ version = File.read(File.expand_path("../VERSION", __FILE__)).strip
 
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
-  s.name = 'viewpoint'
+  s.name = 'viewpoint2'
   s.version = version
   s.date    = Date.today.to_s
   s.summary = 'A Ruby client access library for Microsoft Exchange Web Services (EWS)'
@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.author = 'Dan Wanek'
   s.email = 'dan.wanek@gmail.com'
   s.homepage = 'http://github.com/zenchild/Viewpoint'
-  s.rubyforge_project = nil
 
   s.files = Dir['Changelog.txt', 'README.md', 'TODO', 'lib/**/*']
   s.require_path = 'lib'

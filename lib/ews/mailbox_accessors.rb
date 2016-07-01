@@ -47,6 +47,7 @@ module Viewpoint::EWS::MailboxAccessors
   # @param [Hash] opts
   # @option opts [DateTime] :start_time
   # @option opts [DateTime] :end_time
+  # @option opts [String] :routing_type should be one of the ConnectingSID variables Viewpoint::EWS::ConnectingSID
   # @option opts [Symbol] :requested_view :merged_only/:free_busy/
   #   :free_busy_merged/:detailed/:detailed_merged
   # @option opts [Hash] :time_zone The TimeZone data
@@ -69,8 +70,14 @@ private
       raise EwsBadArgumentError, "You must specify a start_time, end_time and requested_view."
     end
 
+    routing = opts[:routing_type]
+
     default_args = {
-      mailbox_data: (emails.collect{|e| [email: {address: e}]}.flatten),
+      mailbox_data: (emails.collect{ |e|
+        user = {address: e}
+        user[:routing_type] = routing if routing
+        [email: user]
+      }.flatten),
       free_busy_view_options: {
         time_window: {
           start_time: opts[:start_time],

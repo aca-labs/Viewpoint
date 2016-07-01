@@ -1,5 +1,5 @@
 $: << File.dirname(__FILE__) + '/../lib/'
-require 'viewpoint'
+require 'viewpoint2'
 require 'viewpoint/logging/config'
 require 'ostruct'
 require 'turn/autorun'
