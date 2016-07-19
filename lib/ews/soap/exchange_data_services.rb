@@ -1,4 +1,6 @@
+require 'pp'
 module Viewpoint::EWS::SOAP
+
 
   # Exchange Data Service operations as listed in the EWS Documentation.
   # @see http://msdn.microsoft.com/en-us/library/bb409286.aspx
@@ -123,6 +125,7 @@ module Viewpoint::EWS::SOAP
     #       }
     #     }]
     def create_item(opts)
+      pp opts
       opts = opts.clone
       [:items].each do |k|
         validate_param(opts, k, true)
@@ -147,6 +150,8 @@ module Viewpoint::EWS::SOAP
           }
         end
       end
+      p "Here's req..."
+      p req.serialize
       do_soap_request(req, response_class: EwsResponse)
     end
 

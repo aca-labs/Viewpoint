@@ -62,6 +62,10 @@ module Viewpoint::EWS::MessageAccessors
         resp.submit!
       end
     else
+puts "Normal msg"
+puts msg
+       puts "Heres message to ews"
+puts msg.to_ews
       resp = ews.create_item(msg.to_ews)
       resp.response_messages ?  parse_create_item(resp) : false
     end

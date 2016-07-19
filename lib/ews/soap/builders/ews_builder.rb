@@ -156,6 +156,7 @@ module Viewpoint::EWS::SOAP
     # Build the BaseShape element
     # @see http://msdn.microsoft.com/en-us/library/aa580545.aspx
     def base_shape!(base_shape)
+
       @nbuild[NS_EWS_TYPES].BaseShape(camel_case(base_shape))
     end
 
@@ -818,13 +819,19 @@ module Viewpoint::EWS::SOAP
 
     def message!(item)
       nbuild[NS_EWS_TYPES].Message {
-        if item[:extended_properties]
-          extended_properties! item.delete(:extended_properties)
-        end
+        last_k = nil
         item.each_pair {|k,v|
-          self.send("#{k}!", v)
+          if k != :extended_properties 
+              if last_k == :importance
+                  if item[:extended_properties]
+                      extended_properties! item.delete(:extended_properties)
+                  end
+              end 
+              self.send("#{k}!", v)
+          end
+          last_k = k
         }
-      }
+              }
     end
 
     def is_read!(read)
@@ -933,6 +940,11 @@ module Viewpoint::EWS::SOAP
 
     def subject!(sub)
       nbuild[NS_EWS_TYPES].Subject(sub)
+    end
+
+
+    def item_class!(sub)
+      nbuild[NS_EWS_TYPES].ItemClass(sub)
     end
 
     def importance!(sub)

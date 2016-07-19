@@ -22,6 +22,7 @@ module Viewpoint::EWS
 
 
       def init_defaults!
+        self.item_class ||= nil
         self.subject ||= nil
         self.body ||= nil
         self.body_type ||= 'Text'
@@ -50,6 +51,8 @@ module Viewpoint::EWS
         end
 
         msg = {}
+        msg[:extended_properties] = extended_properties unless extended_properties.empty?
+        msg[:item_class] = item_class if item_class
         msg[:subject] = subject if subject
         msg[:body] = {text: body, body_type: body_type} if body
 
@@ -66,7 +69,6 @@ module Viewpoint::EWS
 
         msg[:is_read] = is_read
 
-        msg[:extended_properties] = extended_properties unless extended_properties.empty?
 
         [ews_opts, msg]
       end
