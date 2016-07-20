@@ -69,6 +69,11 @@ module Viewpoint::EWS::Types
 
           # Remap attributes because ews_builder #dispatch_field_item! uses #build_xml!
           item_attributes = item.to_ews_item.map do |name, value|
+
+            # Force HTML if attribute is body
+            if name == :body
+              value[:body_type] = 'HTML'
+            end
             if value.is_a? String
               {name => {text: value}}
             elsif value.is_a? Hash
