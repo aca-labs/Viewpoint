@@ -7,3 +7,5 @@ Gemfile.lock
 .idea
 tmp
 vendor
+
+*.gem
