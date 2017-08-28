@@ -898,6 +898,34 @@ module Viewpoint::EWS::SOAP
       nbuild[NS_EWS_TYPES].NumberOfOccurrences(count)
     end
 
+    def end_date_recurrence!(item)
+      nbuild[NS_EWS_TYPES].EndDateRecurrence {
+        item.each_pair { |k, v|
+          self.send("#{k}!", v)
+        }
+      }
+    end
+
+    def end_date!(sd)
+      nbuild[NS_EWS_TYPES].EndDate sd[:text]
+    end
+
+    def days_of_week!(sd)
+      nbuild[NS_EWS_TYPES].DaysOfWeek sd[:text]
+    end
+
+    def first_day_of_week!(sd)
+      nbuild[NS_EWS_TYPES].FirstDayOfWeek sd[:text]
+    end
+
+    def day_of_month!(sd)
+      nbuild[NS_EWS_TYPES].DayOfMonth sd[:text]
+    end
+
+    def absolute_monthly_recurrence!(sd)
+      nbuild[NS_EWS_TYPES].AbsoluteMonthlyRecurrence sd[:text]
+    end
+
 
     def task!(item)
       nbuild[NS_EWS_TYPES].Task {
