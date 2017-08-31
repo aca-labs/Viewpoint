@@ -31,7 +31,11 @@ class Viewpoint::EWS::Connection
   # @option opts [Array]  :trust_ca an array of hashed dir paths or a file
   def initialize(endpoint, opts = {})
     @log = Logging.logger[self.class.name.to_s.to_sym]
-    @httpcli = HTTPClient.new
+    if opts[:http_client]
+      @httpcli = HTTPClient.new(opts[:http_client])
+    else
+      @httpcli = HTTPClient.new
+    end
     if opts[:trust_ca]
       @httpcli.ssl_config.clear_cert_store
       opts[:trust_ca].each do |ca|
