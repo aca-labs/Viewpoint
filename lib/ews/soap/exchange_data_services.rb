@@ -739,7 +739,7 @@ module Viewpoint::EWS::SOAP
         else
         builder.nbuild.ResolveNames {|x|
           x.parent['ReturnFullContactData'] = fcd.to_s
-          x.parent['SearchScope'] = opts[:search_scope] if opts[:search_scope]
+          x.parent['SearchScope'] = 'ActiveDirectoryContacts'
           x.parent.default_namespace = @default_ns
           # @todo builder.nbuild.ParentFolderIds
           x.UnresolvedEntry(opts[:name])
