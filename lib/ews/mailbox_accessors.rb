@@ -31,9 +31,9 @@ module Viewpoint::EWS::MailboxAccessors
       # users << Types::MailboxUser.new(ews, mb[:mailbox][:elems])
     elsif(resp.code == 'ErrorNameResolutionMultipleResults')
       resp.response_message[:elems][:resolution_set][:elems].each do |u|
-      if u[:resolution][:elems][0][:mailbox]
-        users << Types::MailboxUser.new(ews, u[:resolution][:elems][0][:mailbox][:elems])
-      end
+        if u[:resolution][:elems][0][:mailbox]
+          users << u[:resolution][:elems][0]
+        end
       end
     else
       raise EwsError, "Find User produced an error: #{resp.code}: #{resp.message}"
