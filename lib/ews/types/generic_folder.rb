@@ -382,7 +382,7 @@ module Viewpoint::EWS::Types
         end
         items
       else
-        raise EwsError, "Could not retrieve folder. #{rm.code}: #{rm.message_text}"
+        raise ::Viewpoint::EWS::Errors::SoapResponseError.new("Could not retrieve folder. #{rm.code}: #{rm.message_text}", resp, rm.code, rm.message_text)
       end
     end
 
