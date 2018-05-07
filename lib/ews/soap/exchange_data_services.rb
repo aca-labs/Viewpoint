@@ -742,6 +742,7 @@ module Viewpoint::EWS::SOAP
           x.parent['SearchScope'] = 'ActiveDirectoryContacts'
           x.parent.default_namespace = @default_ns
           # @todo builder.nbuild.ParentFolderIds
+          builder.parent_folder_ids!([{:id => opts[:folder]}])
           x.UnresolvedEntry(opts[:name])
         }
         end
