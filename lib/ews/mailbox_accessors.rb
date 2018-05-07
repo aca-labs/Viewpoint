@@ -22,10 +22,8 @@ module Viewpoint::EWS::MailboxAccessors
   # Resolve contacts in the Exchange Data Store
   # @param [String] ustring A string to resolve contacts to.
   # @return [Array<MailboxUser>] It returns an Array of MailboxUsers.
-  def search_contacts(ustring, folder=nil)
-    opts = {:name => ustring}
-    opts[:folder] = folder if folder
-    resp = ews.resolve_names(opts)
+  def search_contacts(ustring)
+    resp = ews.resolve_names(:name => ustring)
 
     users = []
     if(resp.status == 'Success')
