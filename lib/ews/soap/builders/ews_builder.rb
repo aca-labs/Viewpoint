@@ -1375,10 +1375,10 @@ private
     def format_time(time)
       case time
       when Time, Date, DateTime
-        time.to_datetime.new_offset(0).iso8601
+        time.to_datetime.utc.iso8601
       when String
         begin
-          DateTime.parse(time).new_offset(0).iso8601
+          DateTime.parse(time).utc.iso8601
         rescue ArgumentError
           raise EwsBadArgumentError, "Invalid Time argument (#{time})"
         end
